@@ -1,36 +1,35 @@
 import './App.css'
 import EditSection from './Component/EditSidePanel/EditSection.jsx';
 import { useContext } from 'react';
-import { PersonalDetailsContext, EducationsContext, ExperiencesContext } from './Context/Provider.jsx';
+import { ResumeContext, ResumePreviewContext } from './Context/Provider.jsx';
 
 function App() {
-  const { personalDetails } = useContext(PersonalDetailsContext);
-  const { educations } = useContext(EducationsContext);
-  const { experiences } = useContext(ExperiencesContext);
-
+  const { resume } = useContext(ResumeContext)
+  const { resumePreview } = useContext(ResumePreviewContext)
+  
   return (
       <div className="app">
         <div className='editSide'>
           <EditSection
             header="Personal Details"
             type="personalDetails"
-            items={personalDetails}
+            items={resume.personalDetails}
           />
           <EditSection
             header="Education Background"
             type="educations"
-            items={educations}
+            items={resume.educations}
           />
           <EditSection
             header="Working Experience"
             type="experiences"
-            items={experiences}
+            items={resume.experiences}
           />
         </div>
         
-        <div className='resume'>
+        <div className='resumePreview'>
           {
-            educations.map((education) => (
+            resumePreview.educations.map((education) => (
               <div
                 key={education.id}
               >

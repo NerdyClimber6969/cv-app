@@ -1,24 +1,14 @@
-import { useState } from "react";
-
-function EditSectionItem({EditForm, content}) {
-    const [editing, setEditing] = useState(false);
-
-    const editSectionItem = editing ? (
-        <EditForm
-            onClose={() => setEditing(false)}
-            content={content}
-        />
-    ) : (
+function EditSectionItem({item, onClick}) {
+    
+    return (
         <button 
-            className="sectionItem"
-            onClick={() => setEditing(true)}
+            className="editSectionItem"
+            onClick={() => onClick(item.id)}
         >
-            <h3>{content.displayName}</h3>
+            <h3>{item.displayName}</h3>
             <img className="editIcon"></img>
         </button>
-    ) 
-
-    return editSectionItem;
+    );
 };
 
 export default EditSectionItem;

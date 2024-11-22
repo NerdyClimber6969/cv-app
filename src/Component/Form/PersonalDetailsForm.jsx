@@ -1,15 +1,14 @@
+import { useState } from "react";
 import Input from "./Input";
-import { useContext } from "react";
-import { PersonalDetailsContext } from "../../Context/Provider.jsx";
 
-function PersonalDetailsForm({onClose, content={}}) {
-    const { personalDetails, setPersonalDetails } = useContext(PersonalDetailsContext) 
+function PersonalDetailsForm({item, updatePreview, onSave, onClose}) {
+    const [personalDetailsData, setPersonalDetailsData] = useState(item);
 
-    function handleUpdate(id, field, value) {
-        setPersonalDetails(personalDetails.map((detail) => (
-            detail.id === id ? {...detail, [field]: value} : detail
-        )));
-
+    function handleFormUpdate(e) {
+        const {name, value} = e.target;
+        const newPersonalDetailsData = {...personalDetailsData, [name]: value};
+        setPersonalDetailsData(newPersonalDetailsData);
+        updatePreview(newPersonalDetailsData);
         return;
     };
 
@@ -20,41 +19,39 @@ function PersonalDetailsForm({onClose, content={}}) {
             <Input
                 type="text"
                 name="firstName"
-                value={content.firstName}
+                value={personalDetailsData.firstName}
                 labelText="First Name"
                 placeholder="e.g. John"
-                onChange={(e) => handleUpdate(content.id, "firstName", e.target.value)}
+                onChange={(e) => handleFormUpdate(e)}
             />
             <Input
                 type="text"
                 name="lastName"
-                value={content.lastName}
+                value={personalDetailsData.lastName}
                 labelText="Last Name"
                 placeholder="e.g. Wick"
-                onChange={(e) => handleUpdate(content.id, "lastName", e.target.value)}
+                onChange={(e) => handleFormUpdate(e)}
             />
             <Input
                 type="tel"
                 name="phoneNumber"
-                value={content.phoneNumber}
+                value={personalDetailsData.phoneNumber}
                 labelText="Phone Number"
                 placeholder="e.g. 12345678"
-                onChange={(e) => handleUpdate(content.id, "phoneNumber", e.target.value)}
+                onChange={(e) => handleFormUpdate(e)}
             />
             <Input
                 type="email"
                 name="email"
-                value={content.email}
+                value={personalDetailsData.email}
                 labelText="Email Address"
                 placeholder="e.g. johnwrick@gmail.com"
-                onChange={(e) => handleUpdate(content.id, "email", e.target.value)}
+                onChange={(e) => handleFormUpdate(e)}
             />
-            <button 
-                type="button"
-                onClick={onClose}
-            >
-                Close
-            </button>
+            <div className="buttonContainer">
+                <button type="submit" onClick={(e) => onSave(e)}>Save</button>
+                <button type="button" onClick={onClose}>Close</button>
+            </div>
         </form>
     );
 };

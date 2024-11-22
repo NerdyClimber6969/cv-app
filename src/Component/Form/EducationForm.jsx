@@ -1,15 +1,14 @@
+import { useState } from "react";
 import Input from "./Input.jsx";
-import { useContext } from "react";
-import { EducationsContext } from "../../Context/Provider.jsx";
 
-function EduactionForm({onClose, content={}}) {
-    const { educations, setEducations} = useContext(EducationsContext);
+function EduactionForm({item, updatePreview, onSave, onClose}) {
+    const [educationData, setEducationData] = useState(item);
 
-    function handleUpdate(id, field, value) {
-        setEducations(educations.map((education) => (
-            education.id === id ? {...education, [field]: value} : education
-        )));
-        
+    function handleFormUpdate(e) {
+        const {name, value} = e.target;
+        const newEducationData = {...educationData, [name]: value};
+        setEducationData(newEducationData);
+        updatePreview(newEducationData);
         return;
     };
 
@@ -21,42 +20,40 @@ function EduactionForm({onClose, content={}}) {
                 type="text"
                 name="school"
                 labelText="School"
-                value={content.school}
+                value={educationData.school}
                 placeholder="e.g. University of Hong Kong"
-                onChange={(e) => handleUpdate(content.id, "school", e.target.value)}
+                onChange={(e) => handleFormUpdate(e)}
             />
             <Input
                 type="text"
                 name="degree"
                 labelText="Degree"
-                value={content.degree}
+                value={educationData.degree}
                 placeholder="e.g. Bachelor of Science"
-                onChange={(e) => handleUpdate(content.id, "degree", e.target.value)}
+                onChange={(e) => handleFormUpdate(e)}
             />
             <div className="dateContainer">
                 <Input
                     type="text"
                     name="startDate"
                     labelText="Start Date"
-                    value={content.startDate}
+                    value={educationData.startDate}
                     placeholder="e.g. 11/2020"
-                    onChange={(e) => handleUpdate(content.id, "startDate", e.target.value)}
+                    onChange={(e) => handleFormUpdate(e)}
                 />
                 <Input
                     type="text"
                     name="endDate"
                     labelText="End Date"
-                    value={content.endDate}
+                    value={educationData.endDate}
                     placeholder="e.g 11/2024"
-                    onChange={(e) => handleUpdate(content.id, "endDate", e.target.value)}
+                    onChange={(e) => handleFormUpdate(e)}
                 />
             </div>
-            <button 
-                type="button"
-                onClick={onClose}
-            >
-                Close
-            </button>
+            <div className="buttonContainer">
+                <button type="submit" onClick={(e) => onSave(e)}>Save</button>
+                <button type="button" onClick={onClose}>Close</button>
+            </div>
         </form>
     );
 };

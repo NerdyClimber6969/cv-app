@@ -34,4 +34,38 @@ const resumeData = {
     ],
 };
 
-export default resumeData;
+const emptyItem = {
+    personalDetails: () => {
+        return {
+            id: crypto.randomUUID(),
+            firstName: "",
+            lastName: "",
+            phoneNumber: "",
+            email: "",
+            displayName: "",
+        }
+    },
+    educations: () => {
+        return {
+            id: crypto.randomUUID(),
+            school: "a",
+            degree: "b",
+            startDate: "c",
+            endDate: "d",
+            displayName: "e",
+        }
+    },
+    experiences: () => {
+        return {
+            id: crypto.randomUUID(),
+            company: "",
+            position: "",
+            startDate: "",
+            endDate: "",
+            jobDescription: "",
+            displayName: "",
+        }
+    },
+}; 
+
+export { resumeData, emptyItem };
