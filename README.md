@@ -1,0 +1,1 @@
+This project is an exercise of using react.js to build cv app
