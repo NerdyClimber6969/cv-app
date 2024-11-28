@@ -2,25 +2,25 @@ import { useState } from "react";
 import Input from "./Input.jsx";
 
 function EduactionForm({item, updatePreview, onSave, onClose}) {
-    const [educationData, setEducationData] = useState(item);
+    const [education, setEducation] = useState(item);
 
     function handleFormUpdate(e) {
         const {name, value} = e.target;
-        const newEducationData = {...educationData, [name]: value};
-        setEducationData(newEducationData);
-        updatePreview(newEducationData);
+        const newEducation = {...education, [name]: value};
+        setEducation(newEducation);
+        updatePreview(newEducation);
         return;
     };
 
     return (
         <form 
-            className="educationsFrom"
+            className="form education"
         >
             <Input
                 type="text"
                 name="school"
                 labelText="School"
-                value={educationData.school}
+                value={education.school}
                 placeholder="e.g. University of Hong Kong"
                 onChange={(e) => handleFormUpdate(e)}
             />
@@ -28,7 +28,7 @@ function EduactionForm({item, updatePreview, onSave, onClose}) {
                 type="text"
                 name="degree"
                 labelText="Degree"
-                value={educationData.degree}
+                value={education.degree}
                 placeholder="e.g. Bachelor of Science"
                 onChange={(e) => handleFormUpdate(e)}
             />
@@ -37,7 +37,7 @@ function EduactionForm({item, updatePreview, onSave, onClose}) {
                     type="text"
                     name="startDate"
                     labelText="Start Date"
-                    value={educationData.startDate}
+                    value={education.startDate}
                     placeholder="e.g. 11/2020"
                     onChange={(e) => handleFormUpdate(e)}
                 />
@@ -45,14 +45,14 @@ function EduactionForm({item, updatePreview, onSave, onClose}) {
                     type="text"
                     name="endDate"
                     labelText="End Date"
-                    value={educationData.endDate}
+                    value={education.endDate}
                     placeholder="e.g 11/2024"
                     onChange={(e) => handleFormUpdate(e)}
                 />
             </div>
             <div className="buttonContainer">
-                <button type="submit" onClick={(e) => onSave(e)}>Save</button>
-                <button type="button" onClick={onClose}>Close</button>
+                <button className="btn save" type="submit" onClick={(e) => onSave(e)}>Save</button>
+                <button className="btn close" type="button" onClick={onClose}>Close</button>
             </div>
         </form>
     );

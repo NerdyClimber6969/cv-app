@@ -1,0 +1,26 @@
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+  margin: 50px 100px;
+  gap: 30px;
+}
+
+.editSectionContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  max-width: 450px;
+  flex: 1;
+}
+
+.previewSectionContainer {
+  display: block;
+  max-width: 900px;
+  flex: 1;
+  height: 100%;
+  background-color: white;
+}

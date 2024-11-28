@@ -1,18 +1,11 @@
 import { useState, useContext } from "react";
-import { emptyItem } from "../../resumeData.jsx";
-import EditSectionItem from "./EditSectionItem.jsx";
-import PersonalDetailsForm from "../Form/PersonalDetailsForm.jsx";
-import EduactionForm from "../Form/EducationForm.jsx";
-import ExperienceForm from "../Form/ExperienceForm.jsx";
 import { ResumeContext, ResumePreviewContext } from '../../Context/Provider.jsx';
+import EditSectionItem from "./EditSectionItem.jsx";
+import resumeItemObj from "../../ResumeItemObj/ResumeItemObj.jsx";
+import forms from "../Form/Forms.jsx";
+import "../../style/EditSection.css"
 
-const forms = {
-    "personalDetails": PersonalDetailsForm,
-    "educations": EduactionForm,
-    "experiences": ExperienceForm,
-};
-
-function EditSection({header, type, items}) {
+function EditSection({header, items, type}) {
     const SelectedForm = forms[type];
 
     const [isAdding, setIsAdding] = useState(false);
@@ -20,23 +13,23 @@ function EditSection({header, type, items}) {
     const [editId, setEditId] = useState(null); 
     const [newItem, setNewItem] = useState(null);
 
-    const { resume, setResume } = useContext(ResumeContext);
-    const { resumePreview, setResumePreview } = useContext(ResumePreviewContext);
+    const { resumeItems, setResumeItems } = useContext(ResumeContext);
+    const { resumeItemsPreview, setResumeItemsPreview } = useContext(ResumePreviewContext);
 
     function updateResumePreview(updatedItem) {
         const newPreview = {
-            ...resumePreview, 
-            [type]: resumePreview[type].map((item) => (
+            ...resumeItemsPreview, 
+            [type]: resumeItemsPreview[type].map((item) => (
                 item.id === editId ? updatedItem : item
             )),
         };
-        setResumePreview(newPreview);
+        setResumeItemsPreview(newPreview);
         
         return;
     };
 
     function handleClose() {
-        setResumePreview(resume);
+        setResumeItemsPreview(resumeItems);
         setEditId(null);
         setIsAdding(false);
         return;
@@ -44,7 +37,7 @@ function EditSection({header, type, items}) {
 
     function handleSave(e) {
         e.preventDefault();
-        setResume(resumePreview);
+        setResumeItems(resumeItemsPreview);
         setEditId(null);
         setIsAdding(false);
         return;
@@ -52,12 +45,12 @@ function EditSection({header, type, items}) {
 
     function handleAdd() {
         setIsAdding(true);
-        const newItemToAdd = emptyItem[type]();
+        const newItemToAdd = new resumeItemObj[type]();
         setNewItem(newItemToAdd);
         setEditId(newItemToAdd.id);
-        setResumePreview({
-            ...resumePreview,
-            [type]: [...resumePreview[type], newItemToAdd]
+        setResumeItemsPreview({
+            ...resumeItemsPreview,
+            [type]: [...resumeItemsPreview[type], newItemToAdd]
         });
         
     };
@@ -69,7 +62,7 @@ function EditSection({header, type, items}) {
                 <div>icon</div>
             </button>
 
-            <div className={sectionOpen ? "sectionItemsContainer open" : "sectionItemsContainer"}>
+            <div className={sectionOpen ? "editItemContainer open" : "editItemContainer"}>
                 {items.map((item) => (
                     item.id === editId ? (
                         <SelectedForm
@@ -87,10 +80,8 @@ function EditSection({header, type, items}) {
                         />                           
                     )
                 ))}
-            </div>
-            
-            {   
-                isAdding ? (
+
+                {isAdding ? (
                     <SelectedForm
                         item={newItem}
                         updatePreview={updateResumePreview}
@@ -100,13 +91,13 @@ function EditSection({header, type, items}) {
                     />
                 ) : (
                     <button 
-                        className="addBtn"
+                        className="btn add"
                         onClick={handleAdd}
                     > 
                         Add
                     </button>
-                )
-            }
+                )}
+            </div>
         </div>
     );
 };

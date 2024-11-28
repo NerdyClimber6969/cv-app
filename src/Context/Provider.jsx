@@ -1,16 +1,16 @@
 import { useState, createContext } from "react";
-import { resumeData } from '../resumeData.jsx';
+import exampleItems from '../ResumeItemObj/exampleItems.jsx';
 
 export const ResumeContext = createContext(null);
 export const ResumePreviewContext = createContext(null);
 
 function Provider({children}) {
-    const [resume, setResume] = useState(resumeData);
-    const [resumePreview, setResumePreview] = useState(resumeData);
+    const [resumeItems, setResumeItems] = useState(exampleItems);
+    const [resumeItemsPreview, setResumeItemsPreview] = useState(exampleItems);
 
     return (
-        <ResumeContext.Provider value={{resume, setResume}}>
-            <ResumePreviewContext.Provider value={{resumePreview, setResumePreview}}>
+        <ResumeContext.Provider value={{resumeItems, setResumeItems}}>
+            <ResumePreviewContext.Provider value={{resumeItemsPreview, setResumeItemsPreview}}>
                     {children}
             </ResumePreviewContext.Provider>
         </ResumeContext.Provider>

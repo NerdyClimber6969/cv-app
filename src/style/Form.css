@@ -1,0 +1,35 @@
+.form {
+    display: block;
+    background-color: white;
+    padding: 0 20px 20px;
+}
+
+.input {
+    margin: 20px 0px;
+}
+
+.input > label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.buttonContainer {
+    display: flex;
+    gap: 20px;
+    float: right;
+}
+
+.buttonContainer > .btn {
+    padding: 20px;
+    border-radius: 10px;
+}
+.btn.save {
+    background-color: #187ff5;
+    color: white;
+    font-weight: bold;
+}
+
+.btn.close {
+    border: solid 2px
+}

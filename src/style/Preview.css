@@ -1,0 +1,47 @@
+.resumePreview {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    flex: 1;
+    height: 100%;
+    padding: 50px;
+}
+
+.previewSection {
+    width: 100%;
+}
+
+.previewSection > h2 {
+    background-color:  #f3f4f6;
+    padding: 8px 0px ;
+    text-align: center;
+    margin: auto;
+}
+
+.previewItemContainer {
+    margin-top: 15px;
+}
+
+.previewItem > h3 {
+    grid-area: itemTitle;
+
+}
+.infoGroup.date {
+    grid-area: date;
+
+}
+
+.infoGroup.other {
+    grid-area: info;
+}
+
+.previewItem {
+    margin-top: 20px;
+    display: grid;
+    grid-template: 
+    "date itemTitle" 1fr
+    "date info" 1fr /
+    25% 1fr;
+}

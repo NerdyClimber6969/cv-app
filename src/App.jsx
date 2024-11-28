@@ -1,42 +1,46 @@
-import './App.css'
+import './style/App.css'
 import EditSection from './Component/EditSidePanel/EditSection.jsx';
+import PreviewSection from './Component/Preview/PreviewSection.jsx';
 import { useContext } from 'react';
 import { ResumeContext, ResumePreviewContext } from './Context/Provider.jsx';
 
 function App() {
-  const { resume } = useContext(ResumeContext)
-  const { resumePreview } = useContext(ResumePreviewContext)
+  const { resumeItems } = useContext(ResumeContext)
+  const { resumeItemsPreview } = useContext(ResumePreviewContext)
   
   return (
       <div className="app">
-        <div className='editSide'>
+        <div className='editSectionContainer'>
           <EditSection
             header="Personal Details"
-            type="personalDetails"
-            items={resume.personalDetails}
+            type="personalInfo"
+            items={resumeItems.personalInfo}
           />
           <EditSection
             header="Education Background"
-            type="educations"
-            items={resume.educations}
+            type="education"
+            items={resumeItems.education}
           />
           <EditSection
             header="Working Experience"
-            type="experiences"
-            items={resume.experiences}
+            type="experience"
+            items={resumeItems.experience}
           />
         </div>
         
-        <div className='resumePreview'>
-          {
-            resumePreview.educations.map((education) => (
-              <div
-                key={education.id}
-              >
-                {education.school}
-              </div>
-            ))
-          }
+        <div className='previewSectionContainer'>
+          <div className='resumePreview'>
+            <PreviewSection
+              header="Education Background"
+              items={resumeItemsPreview.education}
+              type="education"
+            />
+            <PreviewSection
+              header="Working Experience"
+              items={resumeItemsPreview.experience}
+              type="experience"
+            />
+          </div>
         </div>
       </div>
   );
